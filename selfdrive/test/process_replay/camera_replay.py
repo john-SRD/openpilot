@@ -5,10 +5,7 @@ import time
 from typing import Any
 from tqdm import tqdm
 
-from common.hardware import ANDROID
-os.environ['CI'] = "1"
-if ANDROID:
-  os.environ['QCOM_REPLAY'] = "1"
+os.environ['QCOM_REPLAY'] = '1'
 
 from common.spinner import Spinner
 from common.timeout import Timeout
@@ -38,7 +35,7 @@ def camera_replay(lr, fr, desire=None, calib=None):
   spinner.update("starting model replay")
 
   pm = messaging.PubMaster(['frame', 'liveCalibration', 'pathPlan'])
-  sm = messaging.SubMaster(['model', 'modelV2'])
+  sm = messaging.SubMaster(['modelV2'])
 
   # TODO: add dmonitoringmodeld
   print("preparing procs")
@@ -77,7 +74,6 @@ def camera_replay(lr, fr, desire=None, calib=None):
 
         pm.send(msg.which(), f)
         with Timeout(seconds=15):
-          log_msgs.append(messaging.recv_one(sm.sock['model']))
           log_msgs.append(messaging.recv_one(sm.sock['modelV2']))
 
         spinner.update("modeld replay %d/%d" % (frame_idx, fr.frame_count))
@@ -112,8 +108,9 @@ if __name__ == "__main__":
     log_fn = "%s_%s_%s.bz2" % (TEST_ROUTE, "model", ref_commit)
     cmp_log = LogReader(BASE_URL + log_fn)
 
-    ignore = ['logMonoTime', 'valid', 'model.frameDropPerc', 'model.modelExecutionTime',
-              'modelV2.frameDropPerc', 'modelV2.modelExecutionTime']
+    ignore = ['logMonoTime', 'valid',
+              'modelV2.frameDropPerc',
+              'modelV2.modelExecutionTime']
     results: Any = {TEST_ROUTE: {}}
     results[TEST_ROUTE]["modeld"] = compare_logs(cmp_log, log_msgs, ignore_fields=ignore)
     diff1, diff2, failed = format_diff(results, ref_commit)

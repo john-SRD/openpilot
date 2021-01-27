@@ -1,5 +1,18 @@
-Version 0.8.1 (20XX-XX-XX)
+Version 0.8.2 (2021-XX-XX)
 ========================
+ * Audi A3 2015 support thanks to keeleysam!
+ * Lexus ES Hybrid 2018 support thanks to TheInventorMan!
+ * Toyota Camry Hybrid 2021 support thanks to alancyau!
+
+Version 0.8.1 (2020-12-21)
+========================
+ * Original EON is deprecated, upgrade to comma two
+ * Better model performance in heavy rain
+ * Better lane positioning in turns
+ * Fixed bug where model would cut turns on empty roads at night
+ * Fixed issue where some Toyotas would not completely stop thanks to briskspirit!
+ * Toyota Camry 2021 with TSS2.5 support
+ * Hyundai Ioniq Electric 2020 support thanks to baldwalker!
 
 Version 0.8.0 (2020-11-30)
 ========================
